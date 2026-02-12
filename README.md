@@ -18,4 +18,4 @@ A stylish, interactive mental health and productivity web application designed t
 * **FontAwesome** - For clean, intuitive iconography.
 
 
-![Project Preview](Home page.png)
+![Project Preview](https://github.com/a1ksh/live-the-moment-now/blob/main/Home%20page.png)
