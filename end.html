@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live The Moment Now</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <title>Live The Moment Now</title>
+  <link rel="icon" href="фон1.jpg" type="image/jpg">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@300;400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #ec4899;
+            --dark: #0f172a;
+            --darker: #020617;
+        }
+
+        body {
+            background: radial-gradient(circle at 10% 20%, #1e1b4b 0%, #0f172a 100%);
+            background-attachment: fixed;
+            font-family: 'Space Grotesk', sans-serif;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .page.active {
+            display: block;
+            animation: slideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-gradient {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: -1;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 25px -5px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-gradient:hover::before {
+            opacity: 1;
+        }
+
+        .content-box {
+            background: rgba(2, 6, 23, 0.7);
+            backdrop-filter: blur(16px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 42px 0 rgba(31, 38, 135, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .content-box:hover {
+            box-shadow: 0 12px 48px 0 rgba(139, 92, 246, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .fancy-title {
+            font-family: 'Pacifico', cursive;
+            background: linear-gradient(45deg, #f59e0b, #ec4899, #8b5cf6, #6366f1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 300% 300%;
+            animation: gradient 8s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .mood-btn {
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            border: 2px solid transparent;
+            backdrop-filter: blur(8px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mood-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.1);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .mood-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .mood-btn:hover::after {
+            opacity: 1;
+        }
+
+        .mood-btn.active {
+            border-color: white;
+            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+            transform: scale(1.05);
+        }
+
+        .progress-character {
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            filter: drop-shadow(0 8px 25px rgba(139, 92, 246, 0.6));
+        }
+
+        .glow-text {
+            text-shadow: 0 0 15px rgba(255,255,255,0.8);
+        }
+
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .typewriter::after {
+            content: '|';
+            position: absolute;
+            right: 0;
+            animation: blink 1s step-end infinite;
+            color: var(--primary);
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink {
+            from, to { opacity: 1 }
+            50% { opacity: 0 }
+        }
+
+        .pulse {
+            animation: pulse 3s infinite cubic-bezier(0.4, 0, 0.6, 1);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+
+        .nav-btn:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-btn.active::after {
+            transform: scaleX(1);
+        }
+
+        .progress-ring {
+            transition: stroke-dashoffset 0.8s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        .holographic {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .holographic::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255,255,255,0) 0%,
+                rgba(255,255,255,0.1) 50%,
+                rgba(255,255,255,0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 4s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 40% 60%, rgba(99, 102, 241, 0.15) 0%, transparent 25%);
+            background-size: 200% 200%;
+            animation: gradient-move 20s ease infinite alternate;
+        }
+
+        @keyframes gradient-move {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        .card-3d:hover {
+            transform: rotateY(10deg) rotateX(5deg) translateY(-10px);
+        }
+
+        .neon-text {
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px #fff,
+                0 0 20px var(--primary),
+                0 0 40px var(--primary);
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .quiz-question {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .quiz-question:hover {
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.2);
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .quiz-option input {
+            margin-right: 12px;
+            accent-color: var(--primary);
+        }
+    </style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden">
+    <!-- Animated Background -->
+    <div class="parallax-bg"></div>
+
+    <!-- Floating Particles -->
+    <div id="particles-container" class="fixed inset-0 overflow-hidden pointer-events-none z-0"></div>
+
+    <!-- Header -->
+    <header class="glass-nav p-4 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <h1 class="text-2xl md:text-3xl font-bold mb-2 md:mb-0 flex items-center">
+                <span class="fancy-title glow-text">Live the moment now</span>
+            </h1>
+            <nav class="flex flex-wrap justify-center gap-2 md:gap-4">
+                <button onclick="navigate('home')" class="px-3 py-1.5 text-sm md:text-base rounded-full transition nav-btn active">
+                    <i class="fas fa-home mr-2"></i>Басты бет
+                </button>
+                <button onclick="navigate('test')" class="px-3 py-1.5 text-sm md:text-base rounded-full transition nav-btn">
+                    <i class="fas fa-brain mr-2"></i>Тест
+                </button>
+                <button onclick="navigate('quotes')" class="px-3 py-1.5 text-sm md:text-base rounded-full transition nav-btn">
+                    <i class="fas fa-quote-left mr-2"></i>Мотивация
+                </button>
+                <button onclick="navigate('mission')" class="px-3 py-1.5 text-sm md:text-base rounded-full transition nav-btn">
+                    <i class="fas fa-tasks mr-2"></i>Тапсырма
+                </button>
+                <button onclick="navigate('progress')" class="px-3 py-1.5 text-sm md:text-base rounded-full transition nav-btn">
+                    <i class="fas fa-chart-line mr-2"></i>Даму Жолы
+                </button>
+                <button onclick="navigate('lifehacks')" class="px-3 py-1.5 text-sm md:text-base rounded-full transition nav-btn">
+                    <i class="fas fa-lightbulb mr-2"></i>Кеңестер
+                </button>
+                <button onclick="navigate('summary')" class="px-3 py-1.5 text-sm md:text-base rounded-full transition nav-btn">
+                    <i class="fas fa-book mr-2"></i>Қорытынды
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 relative z-10">
+        <!-- Home Page -->
+        <section id="home" class="page active">
+            <div class="max-w-6xl mx-auto text-center mt-10 content-box p-8 md:p-12 animate__animated animate__fadeIn card-3d">
+                <div class="floating mb-8">
+                    <h1 class="text-5xl md:text-8xl fancy-title mb-8 glow-text pulse">Live the moment now</h1>
+                </div>
+                <p class="text-xl md:text-2xl leading-relaxed mb-6 text-gray-300">
+                    Жеке дамуға арналған <span class="text-purple-300 font-bold">интерактивті платформаға</span> қош келдіңіз!
+                </p>
+                <div class="typewriter text-lg md:text-xl mb-8 mx-auto max-w-2xl" id="typewriter-text">
+                    Әр тапсырманы орындаған сайын өзіңізді жақсырақ танисыз...
+                </div>
+                <button onclick="navigate('test')" class="btn-gradient mt-8 px-8 py-4 rounded-full text-lg font-semibold flex items-center mx-auto animate__animated animate__pulse animate__infinite">
+                    <span class="btn-text">Тестті бастау</span>
+                    <span class="btn-icon ml-3 animate__animated animate__heartBeat animate__infinite">✨</span>
+                </button>
+
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="holographic p-6 rounded-2xl border border-purple-500/20 hover:border-purple-500/40 transition-all card-3d">
+                        <div class="text-4xl mb-4 animate-bounce">🧠</div>
+                        <h3 class="font-bold text-lg mb-2">Тұлға тесті</h3>
+                        <p class="text-gray-400 text-sm">Өзіңізді жақсырақ тануға арналған тест</p>
+                    </div>
+                    <div class="holographic p-6 rounded-2xl border border-blue-500/20 hover:border-blue-500/40 transition-all card-3d">
+                        <div class="text-4xl mb-4 animate-bounce">💡</div>
+                        <h3 class="font-bold text-lg mb-2">Кеңестер</h3>
+                        <p class="text-gray-400 text-sm">Өмірлік кеңестер мен әдістер</p>
+                    </div>
+                    <div class="holographic p-6 rounded-2xl border border-green-500/20 hover:border-green-500/40 transition-all card-3d">
+                        <div class="text-4xl mb-4 animate-bounce">📈</div>
+                        <h3 class="font-bold text-lg mb-2">Прогресс</h3>
+                        <p class="text-gray-400 text-sm">Жетістіктеріңізді бақылау</p>
+                    </div>
+                    <div class="holographic p-6 rounded-2xl border border-yellow-500/20 hover:border-yellow-500/40 transition-all card-3d">
+                        <div class="text-4xl mb-4 animate-bounce">📝</div>
+                        <h3 class="font-bold text-lg mb-2">Күнделік</h3>
+                        <p class="text-gray-400 text-sm">Ой-пікірлеріңізді жазу</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Test Page -->
+        <section id="test" class="page">
+            <div class="max-w-3xl mx-auto content-box p-6 md:p-8 animate__animated animate__fadeIn card-3d">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center fancy-title">
+                    Тұлғаңызды табыңыз
+                </h2>
+                <div id="quiz" class="space-y-6">
+                    <!-- Question 1 -->
+                    <div class="quiz-question">
+                        <p class="font-medium mb-3">1. Көп адамдармен араласқаннан кейін қалай сезінесіз?</p>
+                        <div class="space-y-2">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" value="introvert" class="mr-3">
+                                <span>Шаршаған және жалғыздыққа қажеттілік сезінемін</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" value="extrovert" class="mr-3">
+                                <span>Энергия толық және қуанамын</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" value="ambivert" class="mr-3">
+                                <span>Кейде шаршаймын, кейде қуанамын</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Question 2 -->
+                    <div class="quiz-question">
+                        <p class="font-medium mb-3">2. Демалу үшін қалай уақыт өткізгеніңізді ұнатасыз?</p>
+                        <div class="space-y-2">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" value="introvert" class="mr-3">
+                                <span>Жалғыздықта немесе жақын досыммен</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" value="extrovert" class="mr-3">
+                                <span>Достар тобымен немесе әсерлі оқиғаларда</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" value="ambivert" class="mr-3">
+                                <span>Екі нұсқа да мен үшін қолайлы</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Question 3 -->
+                    <div class="quiz-question">
+                        <p class="font-medium mb-3">3. Жаңа адамдармен танысу қалай өтеді?</p>
+                        <div class="space-y-2">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" value="introvert" class="mr-3">
+                                <span>Мен үшін қиын, уақыт қажет</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" value="extrovert" class="mr-3">
+                                <span>Оңай және қуанамын</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" value="ambivert" class="mr-3">
+                                <span>Кейде оңай, кейде қиын</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Question 4 -->
+                    <div class="quiz-question">
+                        <p class="font-medium mb-3">4. Үлкен шараларда қалай әрекет етесіз?</p>
+                        <div class="space-y-2">
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" value="introvert" class="mr-3">
+                                <span>Қашықта болуды ұнатамын</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" value="extrovert" class="mr-3">
+                                <span>Орталықта болуды ұнатамын</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" value="ambivert" class="mr-3">
+                                <span>Кейде қашықта, кейде орталықта</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Question 5 -->
+                    <div class="quiz-question">
+                        <p class="font-medium mb-3">5. Өзіңізді қай жерде ыңғайлы сезінесіз?</p>
+                        <div class="space-y-2">
+                            <label class="quiz-option">
+                                <input type="radio" name="q5" value="introvert" class="mr-3">
+                                <span>Үйде жалғыздықта</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q5" value="extrovert" class="mr-3">
+                                <span>Адамдар арасында</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q5" value="ambivert" class="mr-3">
+                                <span>Екі жағдайда да</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Question 6 -->
+                    <div class="quiz-question">
+                        <p class="font-medium mb-3">6. Жұмыс істеу үшін қандай ортаны ұнатасыз?</p>
+                        <div class="space-y-2">
+                            <label class="quiz-option">
+                                <input type="radio" name="q6" value="introvert" class="mr-3">
+                                <span>Тыныш және жалғыз</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q6" value="extrovert" class="mr-3">
+                                <span>Белсенді және командалық</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q6" value="ambivert" class="mr-3">
+                                <span>Кейде тыныш, кейде белсенді</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Question 7 -->
+                    <div class="quiz-question">
+                        <p class="font-medium mb-3">7. Қандай істер сізді шаршатады?</p>
+                        <div class="space-y-2">
+                            <label class="quiz-option">
+                                <input type="radio" name="q7" value="introvert" class="mr-3">
+                                <span>Көп адамдармен араласу</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q7" value="extrovert" class="mr-3">
+                                <span>Ұзақ уақыт жалғыз болу</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q7" value="ambivert" class="mr-3">
+                                <span>Екі жағдайда да шаршатады</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Question 8 -->
+                    <div class="quiz-question">
+                        <p class="font-medium mb-3">8. Дос құру қалай өтеді?</p>
+                        <div class="space-y-2">
+                            <label class="quiz-option">
+                                <input type="radio" name="q8" value="introvert" class="mr-3">
+                                <span>Қиын, бірақ терең қарым-қатынас</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q8" value="extrovert" class="mr-3">
+                                <span>Оңай, көптеген таныстар</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q8" value="ambivert" class="mr-3">
+                                <span>Кейбіреулермен оңай, басқаларымен қиын</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Question 9 -->
+                    <div class="quiz-question">
+                        <p class="font-medium mb-3">9. Қандай істер сізді қуантырады?</p>
+                        <div class="space-y-2">
+                            <label class="quiz-option">
+                                <input type="radio" name="q9" value="introvert" class="mr-3">
+                                <span>Жалғыздықтағы шығармашылық істер</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q9" value="extrovert" class="mr-3">
+                                <span>Қоғамдық іс-шаралар</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q9" value="ambivert" class="mr-3">
+                                <span>Екі нұсқа да</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Question 10 -->
+                    <div class="quiz-question">
+                        <p class="font-medium mb-3">10. Сіздің идеал демалыс күніңіз қандай?</p>
+                        <div class="space-y-2">
+                            <label class="quiz-option">
+                                <input type="radio" name="q10" value="introvert" class="mr-3">
+                                <span>Үйде кітап оқу немесе фильм көру</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q10" value="extrovert" class="mr-3">
+                                <span>Достармен кездесу немесе паркке бару</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q10" value="ambivert" class="mr-3">
+                                <span>Күннің бір бөлігін жалғыз, бір бөлігін достармен өткізу</span>
+                            </label>
+                        </div>
+                    </div>
+                    <button onclick="calculatePersonality()" class="btn-gradient mt-6 w-full py-4 rounded-xl font-semibold animate__animated animate__pulse animate__infinite">
+                        <i class="fas fa-calculator mr-2"></i> Нәтижені есептеу
+                    </button>
+                </div>
+                <div id="personality-result" class="hidden mt-8 p-6 rounded-xl bg-gradient-to-br from-purple-900/30 to-pink-900/30 border border-purple-500/30 animate__animated animate__fadeInUp">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4 text-center fancy-title">Сіздің тұлға типіңіз:</h3>
+                    <div id="result-content" class="text-center"></div>
+                </div>
+                <div class="mt-10">
+                    <h3 class="font-semibold mb-4 text-lg md:text-xl flex items-center">
+                        <i class="fas fa-heart mr-2 text-pink-500"></i> Қазіргі көңіл-күйіңіз:
+                    </h3>
+                    <div class="flex flex-wrap gap-4 justify-center" id="moodSelector">
+                        <button onclick="selectMood('happy')" class="mood-btn px-6 py-3 bg-gradient-to-br from-yellow-400/20 to-amber-500/20 rounded-xl flex items-center">
+                            <span class="text-2xl mr-3">😊</span>Бақытты
+                        </button>
+                        <button onclick="selectMood('sad')" class="mood-btn px-6 py-3 bg-gradient-to-br from-blue-400/20 to-cyan-500/20 rounded-xl flex items-center">
+                            <span class="text-2xl mr-3">😔</span>Қайғылы
+                        </button>
+                        <button onclick="selectMood('angry')" class="mood-btn px-6 py-3 bg-gradient-to-br from-red-400/20 to-pink-500/20 rounded-xl flex items-center">
+                            <span class="text-2xl mr-3">😠</span>Ашулы
+                        </button>
+                        <button onclick="selectMood('tired')" class="mood-btn px-6 py-3 bg-gradient-to-br from-gray-400/20 to-slate-500/20 rounded-xl flex items-center">
+                            <span class="text-2xl mr-3">😴</span>Шаршаған
+                        </button>
+                        <button onclick="selectMood('productive')" class="mood-btn px-6 py-3 bg-gradient-to-br from-green-400/20 to-emerald-500/20 rounded-xl flex items-center">
+                            <span class="text-2xl mr-3">💪</span>Белсенді
+                        </button>
+                    </div>
+                </div>
+                <button onclick="showPersonalityResult()" class="btn-gradient mt-10 w-full py-4 rounded-xl font-semibold text-lg animate__animated animate__pulse animate__infinite">
+                    <i class="fas fa-magic mr-2"></i> Нәтижені көру
+                </button>
+                <div id="resultContent" class="hidden mt-10 space-y-6 animate__animated animate__fadeInUp"></div>
+            </div>
+        </section>
+
+        <!-- Quotes Page -->
+        <section id="quotes" class="page">
+            <div class="max-w-3xl mx-auto content-box p-6 md:p-8 animate__animated animate__fadeIn card-3d">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center fancy-title">
+                    Көңіл-күйіңізге сәйкес мотивация
+                </h2>
+                <div id="moodSpecificQuotes" class="space-y-6 hidden">
+                    <h3 id="moodTitle" class="text-xl md:text-2xl font-semibold text-center mb-6 flex items-center justify-center">
+                        <span id="moodIcon" class="text-3xl mr-3"></span>
+                        <span id="moodText"></span>
+                    </h3>
+                    <ul id="moodQuoteList" class="space-y-6"></ul>
+                </div>
+                <div id="defaultQuotes" class="text-center py-12">
+                    <div class="text-7xl mb-6 animate-bounce">🤔</div>
+                    <p class="text-lg md:text-xl">
+                        Көңіл-күйіңізді таңдау үшін алдымен <a href="#" onclick="navigate('test')" class="text-purple-300 underline font-medium hover:text-pink-400 transition">тест</a> бетіне өтіңіз
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Page -->
+        <section id="mission" class="page">
+            <div class="max-w-3xl mx-auto content-box p-6 md:p-8 animate__animated animate__fadeIn card-3d">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center fancy-title">
+                    Тұлғаңызға сәйкес тапсырма
+                </h2>
+                <div id="personalitySpecificTask" class="hidden animate__animated animate__zoomIn">
+                    <div class="holographic rounded-2xl p-8 mb-8 border border-purple-500/30 relative overflow-hidden">
+                        <div class="absolute -top-10 -right-10 w-20 h-20 bg-purple-500/10 rounded-full filter blur-xl"></div>
+                        <div class="absolute -bottom-10 -left-10 w-24 h-24 bg-pink-500/10 rounded-full filter blur-xl"></div>
+                        <p id="personalityTask" class="text-xl md:text-2xl text-center py-4 px-4 font-medium"></p>
+                    </div>
+                    <p class="text-sm text-center mb-8 text-gray-300">
+                        <i class="fas fa-info-circle mr-2"></i> Бұл тапсырма сіздің тұлға типіңізге сәйкес құрастырылды
+                    </p>
+                    <div class="flex flex-col md:flex-row justify-center gap-4">
+                        <button onclick="taskDone(true)" class="btn-gradient px-8 py-4 rounded-xl flex items-center justify-center flex-1">
+                            <i class="fas fa-check-circle mr-3"></i> Орындадым
+                        </button>
+                        <button onclick="taskDone(false)" class="px-6 py-4 bg-gray-700 hover:bg-gray-600 rounded-xl flex items-center justify-center flex-1">
+                            <i class="fas fa-times-circle mr-3"></i> Орындамадым
+                        </button>
+                    </div>
+                </div>
+                <div id="defaultTask" class="text-center py-12">
+                    <div class="text-7xl mb-6 animate-pulse">📋</div>
+                    <p class="text-lg md:text-xl">
+                        Жекелендірілген тапсырма алу үшін алдымен <a href="#" onclick="navigate('test')" class="text-purple-300 underline font-medium hover:text-pink-400 transition">тест</a> бетіне өтіңіз
+                    </p>
+                </div>
+                <div id="taskHistory" class="mt-10 hidden animate__animated animate__fadeInUp">
+                    <h3 class="font-semibold text-xl mb-6 text-center flex items-center justify-center">
+                        <i class="fas fa-history mr-3"></i> Өткен тапсырмалар:
+                    </h3>
+                    <ul class="space-y-4 max-h-96 overflow-y-auto scrollbar-hide p-2" id="taskHistoryList"></ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Page -->
+        <section id="progress" class="page">
+            <div class="max-w-3xl mx-auto content-box p-6 md:p-8 animate__animated animate__fadeIn card-3d">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center fancy-title">
+                    Жеке Даму Жолы
+                </h2>
+                <div class="flex flex-col items-center mb-10">
+                    <div id="progressVisual" class="h-64 w-64 mb-8 relative flex items-center justify-center">
+                        <svg class="w-full h-full" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#1e293b" stroke-width="8"/>
+                            <circle id="progressRing" class="progress-ring" cx="50" cy="50" r="45" fill="none" stroke="url(#gradient)" stroke-width="8" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="283"/>
+                            <defs>
+                                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#8b5cf6"/>
+                                    <stop offset="100%" stop-color="#ec4899"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div id="characterContainer" class="absolute text-center">
+                            <div class="text-8xl mb-3 progress-character">😐</div>
+                            <p class="text-sm text-gray-300">Сіздің персонажыңыз</p>
+                        </div>
+                    </div>
+                    <div class="w-full max-w-md mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-sm font-medium">0%</span>
+                            <span id="progressPercent" class="text-sm font-medium">0%</span>
+                            <span class="text-sm font-medium">100%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-3">
+                            <div id="progressBar" class="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <p id="progressText" class="text-center text-gray-300 mb-8">
+                        <i class="fas fa-info-circle mr-2"></i> Дамуыңыздың көрсеткіші
+                    </p>
+                    <div class="flex justify-center mb-8">
+                        <button onclick="resetProgress()" class="px-6 py-3 bg-gradient-to-br from-red-600 to-rose-700 hover:from-red-700 hover:to-rose-800 rounded-xl transition flex items-center">
+                            <i class="fas fa-redo mr-2"></i> Жаңадан бастау
+                        </button>
+                    </div>
+                    <div id="statsContainer" class="grid grid-cols-2 md:grid-cols-4 gap-6 w-full"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lifehacks Page -->
+        <section id="lifehacks" class="page">
+            <div class="max-w-5xl mx-auto content-box p-6 md:p-8 animate__animated animate__fadeIn card-3d">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center fancy-title">
+                    Жеке дамуға арналған кеңестер
+                </h2>
+                <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <li class="holographic p-6 rounded-2xl border border-purple-500/20 hover:border-purple-500/40 transition-all card-3d">
+                        <div class="flex items-start">
+                            <div class="text-3xl mr-4 text-purple-400">📚</div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Оқу</h3>
+                                <p class="text-sm text-gray-300">Күніне 20 минут кітап оқыңыз. Бұл сіздің біліміңізді кеңейтеді және ойлау қабілетіңізді дамытады.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="holographic p-6 rounded-2xl border border-blue-500/20 hover:border-blue-500/40 transition-all card-3d">
+                        <div class="flex items-start">
+                            <div class="text-3xl mr-4 text-blue-400">🧘‍♀️</div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Өзің үшін</h3>
+                                <p class="text-sm text-gray-300">Басқалардың пікіріне қатты құлақ аса берме.Жүрек қалауыңды жаса,өмір сенікі басқалар сен үшін өмір сүрмейді.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="holographic p-6 rounded-2xl border border-green-500/20 hover:border-green-500/40 transition-all card-3d">
+                        <div class="flex items-start">
+                            <div class="text-3xl mr-4 text-green-400">📝</div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Жазба</h3>
+                                <p class="text-sm text-gray-300">Өз ойларыңызды күнделікке жазыңыз.Эмоцияны ішіңізде сақтамаңыз. Ойың таза болмаса,ісіңде береке болмайды.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="holographic p-6 rounded-2xl border border-yellow-500/20 hover:border-yellow-500/40 transition-all card-3d">
+                        <div class="flex items-start">
+                            <div class="text-3xl mr-4 text-yellow-400">🎯</div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Мақсат</h3>
+                                <p class="text-sm text-gray-300">Ешкімді күтпеңіз,өзің үшін әрекет ет.Апталық шағын мақсаттар қойыңыз. Оларға жету оңайырақ болады.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="holographic p-6 rounded-2xl border border-red-500/20 hover:border-red-500/40 transition-all card-3d">
+                        <div class="flex items-start">
+                            <div class="text-3xl mr-4 text-red-400">🏃‍♂️</div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Спорт</h3>
+                                <p class="text-sm text-gray-300">Сен бақылауда ұстай алатын заттар: уақытың, ойларың, денсаулығың.Күніне 15 минут дене шынықтыру. Денсаулық - байлық.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="holographic p-6 rounded-2xl border border-gray-500/20 hover:border-gray-500/40 transition-all card-3d">
+                        <div class="flex items-start">
+                            <div class="text-3xl mr-4 text-gray-400">💤</div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Ұйқы</h3>
+                                <p class="text-sm text-gray-300">7-8 сағат сапалы ұйқы алуға тырысыңыз. Ұйқы - денсаулықтың негізі.</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Summary Page -->
+        <section id="summary" class="page">
+            <div class="max-w-3xl mx-auto content-box p-6 md:p-8 animate__animated animate__fadeIn card-3d">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center fancy-title">
+                    Қорытынды
+                </h2>
+                <p class="mb-4 text-gray-300 flex items-center">
+                    <i class="fas fa-pen-fancy mr-2"></i> Өз ойларыңызды жазыңыз:
+                </p>
+                <textarea id="dailyJournal" placeholder="Бүгін мен өзім туралы не үйрендім... / Менің сезімдерім..."
+                    class="w-full h-48 p-4 rounded-xl bg-gray-800/50 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none text-white placeholder-gray-500 transition"></textarea>
+                <div class="flex justify-between items-center mt-4">
+                    <button onclick="saveJournal()" class="btn-gradient px-6 py-3 rounded-lg flex items-center">
+                        <i class="fas fa-save mr-2"></i> Сақтау
+                    </button>
+                    <span id="journalDate" class="text-sm text-gray-400"></span>
+                </div>
+                <div id="journalHistory" class="mt-10 hidden">
+                    <h3 class="font-semibold text-xl mb-6 text-center flex items-center justify-center">
+                        <i class="fas fa-book-open mr-3"></i> Өткен жазбалар:
+                    </h3>
+                    <div id="journalEntries" class="space-y-4 max-h-96 overflow-y-auto scrollbar-hide p-2"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bonus Page -->
+        <section id="bonus" class="page">
+            <div class="max-w-md mx-auto text-center content-box p-8 md:p-10 animate__animated animate__zoomIn card-3d">
+                <div class="text-9xl mb-8 floating">🎉</div>
+                <h2 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-teal-600 mb-6 neon-text">
+                    Керемет жұмыс!
+                </h2>
+                <p class="text-xl md:text-2xl mb-8">Тапсырманы орындадыңыз. Бұл сіздің дамуыңызға үлкен қадам!</p>
+                <button onclick="navigate('home')" class="btn-gradient px-8 py-4 rounded-full text-lg font-semibold flex items-center mx-auto">
+                    <i class="fas fa-home mr-2"></i> Басты бетке оралу
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900/50 backdrop-blur-md py-6 mt-12">
+        <div class="container mx-auto text-center text-gray-400">
+            <p>© 2025 Өміріңді өзгертетін сәт – дәл қазір. Қолыңда. Қимылда!</p>
+            <div class="flex justify-center gap-4 mt-4">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // State Management
+        let selectedMood = null;
+        let personalityType = null;
+        let progress = 0;
+        let taskHistory = JSON.parse(localStorage.getItem('taskHistory')) || [];
+        let journalEntries = JSON.parse(localStorage.getItem('journalEntries')) || [];
+
+        // Navigation
+        function navigate(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelector(`#${pageId}`).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`button[onclick="navigate('${pageId}')"]`).classList.add('active');
+        }
+
+        // Typewriter Effect
+        window.addEventListener('load', () => {
+            const textElement = document.getElementById('typewriter-text');
+            const text = textElement.textContent;
+            textElement.textContent = '';
+            let i = 0;
+            const interval = setInterval(() => {
+                textElement.textContent += text.charAt(i);
+                i++;
+                if (i >= text.length) clearInterval(interval);
+            }, 50);
+            createParticles();
+            renderJournal();
+            renderTaskHistory();
+        });
+
+        // Personality Test Calculation
+        function calculatePersonality() {
+            const answers = {};
+            for (let q = 1; q <= 10; q++) {
+                const selected = document.querySelector(`input[name="q${q}"]:checked`);
+                if (!selected) {
+                    alert('Барлық сұрақтарға жауап беріңіз!');
+                    return;
+                }
+                answers[`q${q}`] = selected.value;
+            }
+
+            const counts = { introvert: 0, extrovert: 0, ambivert: 0 };
+            Object.values(answers).forEach(answer => counts[answer]++);
+
+            personalityType = counts.introvert >= 7 ? 'introvert' : counts.extrovert >= 7 ? 'extrovert' : 'ambivert';
+
+            let resultText = '';
+            if (personalityType === 'introvert') {
+                resultText = 'Сіз интровертсіз! Сіз тыныш ортаны, терең ойлауды және жақын қарым-қатынастарды ұнатасыз.';
+            } else if (personalityType === 'extrovert') {
+                resultText = 'Сіз экстравертсіз! Сіз адамдармен араласуды, белсенді ортаны және жаңа таныстықтарды ұнатасыз.';
+            } else {
+                resultText = 'Сіз амбивертсіз! Сіз интроверт пен экстраверт қасиеттерін теңестіресіз, жағдайға байланысты бейімделесіз.';
+            }
+
+            document.getElementById('result-content').innerHTML = `
+                <p class="text-lg md:text-xl">${resultText}</p>
+                <div class="mt-4">
+                    <p>Интроверт: ${counts.introvert} балл</p>
+                    <p>Экстраверт: ${counts.extrovert} балл</p>
+                    <p>Амбиверт: ${counts.ambivert} балл</p>
+                </div>
+            `;
+            document.getElementById('personality-result').classList.remove('hidden');
+        }
+
+        // Mood Selection
+        function selectMood(mood) {
+            selectedMood = mood;
+            document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`button[onclick="selectMood('${mood}')"]`).classList.add('active');
+        }
+
+        const quotes = {
+    happy: [
+        'Бақыт - бұл саяхат, мақсат емес. - Ралф Уолдо Эмерсон',
+        'Әр күн - жаңа бастама. Оны қуанышпен қарсы алыңыз!',
+        'Күлкі - бұл еркін және дені сау адамның ең жақсы еркелетуі. - Иммануил Кант',
+        'Бақытты болу үшін басқалардың пікіріне қарамай өмір сүріңіз. - Уильям Шекспир',
+        'Кішкентай қуаныштарды бағалауды үйреніңіз. Олар - үлкен бақыттың кілті.',
+        'Өзіңізді қуантатын нәрселерді жиі істеңіз. Бұл - өмір сапасын арттырудың қарапайым әдісі.',
+        'Бақыт - өзіңіздің қолыңызда! Оны іздемеңіз, оны жасаңыз.',
+        'Көңілді адамдармен араласыңыз. Олар сіздің көңіл-күйіңізді көтереді.',
+        'Табиғатта болу - ең жақсы терапия. Ашық ауада көбірек уақыт өткізіңіз.',
+        'Өткенді ұмытып, келешекке үмітпен қараңыз. Бүгін - жаңа мүмкіндіктер күні!'
+    ],
+    sad: [
+        'Қиын күндер болса да, олар сізді мықты етеді. - Халил Жубран',
+        'Көз жасы - жүректің сөздері.',
+        'Әрбір қайғы - жаңа күш пен тәжірибе береді. - Виктор Гюго',
+        'Жылау - дені сау эмоциялардың бір түрі. Оны басып тастамаңыз.',
+        'Қайғылы кезеңдер өтеді. Тек шыдамдылық танытыңыз.',
+        'Өзіңізге уақыт беріңіз. Жарақаттар уақытпен емделеді.',
+        'Өмірде маңызды нәрсе қанша рет құлағаның емес,қайта тұра алғаның.',
+        'Бәрі де өтеді. Бұл сәт те өтеді.',
+        'Қараңғы түннен кейін әрдайым таң атады.',
+        'Бүгінгі қиындықтар – ертеңгі табыстың баспалдағы.'
+    ],
+    angry: [
+        'Ашуыңызды басқарыңыз, әйтпесе ол сізді басқарады.',
+        'Тыныштық - ең үлкен күш.',
+        'Ашу - өзіңізге қарсы қолданатын улы қару. - Будда',
+        'Ашумен жасалған шешім – өкінішпен аяқталады.',
+        'Бір сәттік ашу – бір өмірлік өкінішке себеп болмауы керек.',
+        'Сабыр – жанның шипасы.',
+        'Ашу келгенде үндеме, сабыр келгенде сөйле.',
+        'Тыныштық – ішкі күштің белгісі.',
+        'Ойланатын сұрақ: "Бұл 1 жылдан кейін маңызды бола ма?"',
+        'Кешірімділікті үйреніңіз. Ашу - өзіңізге зиян келтіру.'
+    ],
+    tired: [
+        'Демалыңыз, бірақ берілмеңіз. - Винс Ломбарди',
+        'Кішкентай қадамдар да сізді мақсатқа жеткізеді.',
+        'Денеңізді тыңдаңыз. Ол сізге демалыс қажет екенін айтады.',
+        'Кейде тоқтау – алға жылжудың бір жолы.',
+        'Күшің таусылғандай сезілсе де, үмітің таусылмасын.',
+        'Бүгін қиын болса – бұл мәңгілік емес. Ертеңгі күн жаңа үмітпен атар.',
+        'Сен шаршасаң да, арманың шаршамайды.',
+        'Өмір – бұл марафон. Әр қадам – жеңіс.',
+        'Шаршадың ба? Демал. Бірақ арманыңнан бас тартпа.',
+        'Өз жолыңмен жүрсең – кеш болса да жетесің.'
+    ],
+    productive: [
+        'Бүгін істегеніңіз сізді ертеңгі мақсаттарыңызға жақындатады.',
+        'Әрекет - табыстың кілті.',
+        'Тапсырмаларды басымдық бойынша реттеңіз. Маңыздысын бірінші орындаңыз.',
+        'Сенің әр әрекетің – өзіңе жасаған ең үлкен сый.',
+        'Бүгін күш салсаң – ертең еркін өмір сүресің.',
+        'Басқалар армандап жүргенді сен жасап жатырсың.',
+        'Уақытты басқаруға үйреніңіз. Ол - өнімділіктің негізі.',
+        'Сен тек жұмыс істеп жатқан жоқсың – сен өз арманыңды қалыптастырып жатырсың.',
+        'Мотивация кетуі мүмкін, бірақ тәртіп – тұрақты. Сенде екеуі де бар.',
+        'Өз ісіңе сеніммен қараған адам – биіктен орын алады.'
+    ]
+};
+
+        function showPersonalityResult() {
+            if (!personalityType || !selectedMood) {
+                alert('Тестті аяқтап, көңіл-күйіңізді таңдаңыз!');
+                return;
+            }
+
+            const resultContent = document.getElementById('resultContent');
+            let moodMessage = '';
+            switch (selectedMood) {
+                case 'happy':
+                    moodMessage = 'Сіз бақыттысыз! Осы энергияны сақтап, мақсаттарыңызға жетіңіз!';
+                    break;
+                case 'sad':
+                    moodMessage = 'Қайғылы болсаңыз да, әр қиындық - жаңа мүмкіндік. Алға!';
+                    break;
+                case 'angry':
+                    moodMessage = 'Ашуыңызды позитивті энергияға айналдырыңыз. Сіз мықтысыз!';
+                    break;
+                case 'tired':
+                    moodMessage = 'Шаршаған кезде демалыңыз, бірақ берілмеңіз. Сіз мұны істей аласыз!';
+                    break;
+                case 'productive':
+                    moodMessage = 'Белсенді күйде керемет нәтижелерге жетесіз! Жалғастырыңыз!';
+                    break;
+            }
+
+            resultContent.innerHTML = `
+                <div class="p-6 rounded-xl bg-gradient-to-br from-purple-900/30 to-pink-900/30 border border-purple-500/30">
+                    <p class="text-lg md:text-xl">${moodMessage}</p>
+                </div>
+            `;
+            resultContent.classList.remove('hidden');
+
+            // Show quotes based on mood
+            const moodQuotes = document.getElementById('moodSpecificQuotes');
+            const moodTitle = document.getElementById('moodText');
+            const moodIcon = document.getElementById('moodIcon');
+            const quoteList = document.getElementById('moodQuoteList');
+            moodTitle.textContent = selectedMood.charAt(0).toUpperCase() + selectedMood.slice(1);
+            moodIcon.textContent = {
+                happy: '😊', sad: '😔', angry: '😠', tired: '😴', productive: '💪'
+            }[selectedMood];
+            quoteList.innerHTML = quotes[selectedMood].map(quote => `
+                <li class="p-4 rounded-xl bg-gray-800/40 border border-gray-600">
+                    <p class="text-gray-300">${quote}</p>
+                </li>
+            `).join('');
+            document.getElementById('defaultQuotes').classList.add('hidden');
+            moodQuotes.classList.remove('hidden');
+
+            // Generate random task
+            generateRandomTask();
+        }
+
+        // Random Task Generation
+        const tasks = {
+            introvert: {
+                happy: [
+                    '30 минут кітап оқып, жаңа білім алыңыз.',
+                    'Шығармашылық жазба жазыңыз: бүгінгі бақытты сәтіңізді сипаттаңыз.',
+                    'Өзіңізге ұнайтын суретті салыңыз.',
+                    '15 минут музыка тыңдап, көңіл-күйіңізді көтеріңіз.',
+                    'Үйдегі өсімдікке күтім жасаңыз немесе жаңасын отырғызыңыз.',
+                    'Бақыт туралы өлең жазыңыз.',
+                    'Тыныш жерде 20 минут ойланып, алдағы мақсаттарыңызды жоспарлаңыз.'
+                ],
+                sad: [
+                    '10 минут медитация жасаңыз, ойларыңызды реттеңіз.',
+                    'Жақын досыңызға хат жазып, сезімдеріңізді бөлісіңіз.',
+                    'Күнделікке бүгінгі сезімдеріңізді жазыңыз.',
+                    'Тыныштандыратын музыка тыңдап, демалыңыз.',
+                    'Ыстық шай ішіп, өзіңізді еркелетіңіз.',
+                    'Қайғылы фильм көріп, эмоцияларыңызды шығарыңыз.',
+                    'Өзіңізге жылы сөздер жазып, оны айнаға іліңіз.'
+                ],
+                angry: [
+                    '15 минут тыныс алу жаттығуларын жасаңыз.',
+                    'Қағазға ашуыңыздың себебін жазып, оны жойыңыз.',
+                    'Қысқа жүгірумен айналысып, энергияны босатыңыз.',
+                    'Бөлмені тазалап, ойларыңызды реттеңіз.',
+                    'Тыныш жерде 10 минут отырып, ашуыңызды талдаңыз.',
+                    'Ашу туралы күнделікке жазыңыз.',
+                    'Қатты музыка тыңдап, эмоцияларыңызды шығарыңыз.'
+                ],
+                tired: [
+                    '10 минут тыныш музыка тыңдап, демалыңыз.',
+                    'Қысқа серуендеп, таза ауа алыңыз.',
+                    '20 минуттық ұйқымен демалыңыз.',
+                    'Ыстық ванна қабылдап, бұлшықеттеріңізді босаңсытыңыз.',
+                    'Тыныштандыратын шай ішіңіз.',
+                    '5 минут жеңіл созылу жаттығуларын жасаңыз.',
+                    'Көңілді подкаст тыңдап, көңіл-күйіңізді көтеріңіз.'
+                ],
+                productive: [
+                    'Бүгінгі мақсаттарыңызды жазып, оларды басымдық бойынша реттеңіз.',
+                    '30 минут шығармашылық жобамен айналысыңыз.',
+                    'Жаңа дағдыны онлайн курстан үйреніңіз.',
+                    'Бөлмені ретке келтіріп, жұмыс орныңызды жайлы етіңіз.',
+                    'Келесі аптаға жоспар құрыңыз.',
+                    'Қысқа мақала жазып, біліміңізді бөлісіңіз.',
+                    'Миға арналған жаттығулар (мысалы, кроссворд) шешіңіз.'
+                ]
+            },
+            extrovert: {
+                happy: [
+                    'Достарыңызбен кездесуге шығыңыз.',
+                    'Жаңа адаммен танысып, әңгіме бастаңыз.',
+                    'Қызықты іс-шараға қатысыңыз.',
+                    'Достарыңызбен би кешін ұйымдастырыңыз.',
+                    'Кафе немесе мейрамханаға барып, жаңа тағамдар сынап көріңіз.',
+                    'Қаладағы жаңа орынды зерттеңіз.',
+                    'Көңілді ойын кешін ұйымдастырыңыз.'
+                ],
+                sad: [
+                    'Досыңызбен кофе ішіп, әңгімелесіңіз.',
+                    'Қайырымдылық шарасына қатысыңыз.',
+                    'Жақын адамыңызға телефон соғып, сырласыңыз.',
+                    'Топпен серуенге шығыңыз.',
+                    'Комедиялық шоуға барыңыз.',
+                    'Достарыңызбен фото түсіріп, естелік жасаңыз.',
+                    'Қайғыңызды бөлісетін топтық чатта сөйлесіңіз.'
+                ],
+                angry: [
+                    'Спортпен айналысыңыз: жүгіру немесе топтық жаттығу.',
+                    'Достарыңызбен көңілді іс-шара ұйымдастырыңыз.',
+                    'Қатты музыкамен билеңіз.',
+                    'Командалық ойынға қатысыңыз.',
+                    'Достарыңызбен ашық әңгіме жүргізіңіз.',
+                    'Ашуыңызды спортзалда шығарыңыз.',
+                    'Топпен қызықты жерге саяхат жасаңыз.'
+                ],
+                tired: [
+                    'Достарыңызбен жеңіл серуенге шығыңыз.',
+                    'Көңілді фильмді топпен көріңіз.',
+                    'Кафеге барып, достарыңызбен демалыңыз.',
+                    'Топпен пикник ұйымдастырыңыз.',
+                    'Қысқа уақытқа достарыңызбен чатта сөйлесіңіз.',
+                    'Жеңіл ойынмен көңіл көтеріңіз.',
+                    'Достарыңызбен табиғатта демалыңыз.'
+                ],
+                productive: [
+                    'Командалық жобаны бастаңыз немесе қатысыңыз.',
+                    'Жаңа дағды үйренуге арналған шеберлік сағатына қатысыңыз.',
+                    'Достарыңызбен бірге мақсаттарыңызды талқылаңыз.',
+                    'Топпен миға шабуыл (brainstorming) сессиясын өткізіңіз.',
+                    'Қоғамдық шараны ұйымдастырыңыз.',
+                    'Достарыңызбен бірге бизнес-идея ойластырыңыз.',
+                    'Топпен жаңа жобаны бастаңыз.'
+                ]
+            },
+            ambivert: {
+                happy: [
+                    'Жаңа хобби бастаңыз: сурет салу немесе аспапта ойнау.',
+                    'Достарыңызбен қысқа кездесу ұйымдастырыңыз.',
+                    '30 минут кітап оқып, демалыңыз.',
+                    'Қалада серуендеп, жаңа жерлерді зерттеңіз.',
+                    'Көңілді музыка тыңдап, билеңіз.',
+                    'Достарыңызбен фото түсіріп, естелік жасаңыз.',
+                    'Шығармашылықпен айналысыңыз: қолөнер жасаңыз.'
+                ],
+                sad: [
+                    'Өз ойларыңызды күнделікке жазыңыз.',
+                    'Жақын адамыңызбен сырласыңыз.',
+                    'Тыныштандыратын музыка тыңдаңыз.',
+                    '10 минут медитация жасаңыз.',
+                    'Жақын досыңызбен серуендеңіз.',
+                    'Қайғылы өлең жазыңыз.',
+                    'Ыстық шай ішіп, демалыңыз.'
+                ],
+                angry: [
+                    '15 минут спортпен айналысыңыз.',
+                    'Тыныш жерде 10 минут ойлануға уақыт бөліңіз.',
+                    'Ашуыңызды күнделікке жазыңыз.',
+                    'Қатты музыкамен билеңіз.',
+                    'Қысқа жүгірумен энергияны босатыңыз.',
+                    'Досыңызбен ашық әңгіме жүргізіңіз.',
+                    'Қағазға ашуыңызды жазып, жойыңыз.'
+                ],
+                tired: [
+                    'Қысқа ұйқы (20 минут) ұйықтаңыз.',
+                    'Жеңіл серуенге шығыңыз.',
+                    'Тыныш музыка тыңдаңыз.',
+                    '5 минут созылу жаттығуларын жасаңыз.',
+                    'Ыстық ванна қабылдаңыз.',
+                    'Көңілді подкаст тыңдаңыз.',
+                    'Достарыңызбен қысқа чатта сөйлесіңіз.'
+                ],
+                productive: [
+                    'Бүгінгі тапсырмалар тізімін жасаңыз.',
+                    'Жаңа дағдыны онлайн курстан үйреніңіз.',
+                    '30 минут шығармашылық жобамен айналысыңыз.',
+                    'Достарыңызбен жобаны талқылаңыз.',
+                    'Келесі аптаға жоспар құрыңыз.',
+                    'Миға арналған жаттығулар шешіңіз.',
+                    'Жұмыс орныңызды ретке келтіріңіз.'
+                ]
+            }
+        };
+
+        function generateRandomTask() {
+            if (!personalityType || !selectedMood) return;
+            const taskList = tasks[personalityType][selectedMood];
+            const randomTask = taskList[Math.floor(Math.random() * taskList.length)];
+            document.getElementById('personalityTask').textContent = randomTask;
+            document.getElementById('defaultTask').classList.add('hidden');
+            document.getElementById('personalitySpecificTask').classList.remove('hidden');
+        }
+
+        // Task Completion
+        function taskDone(completed) {
+            if (!personalityType || !selectedMood) return;
+            const task = document.getElementById('personalityTask').textContent;
+            taskHistory.unshift({
+                task,
+                completed,
+                date: new Date().toLocaleDateString('kk-KZ', { year: 'numeric', month: 'long', day: 'numeric' })
+            });
+            localStorage.setItem('taskHistory', JSON.stringify(taskHistory));
+            if (completed) {
+                progress = Math.min(progress + 10, 100);
+                updateProgress(progress);
+                generateRandomTask(); // Generate new task instead of navigating to bonus
+            } else {
+                generateRandomTask();
+            }
+            renderTaskHistory();
+        }
+
+        // Task History
+        function renderTaskHistory() {
+            const taskHistoryList = document.getElementById('taskHistoryList');
+            taskHistoryList.innerHTML = taskHistory.map(entry => `
+                <li class="p-4 rounded-xl bg-gray-800/40 border border-gray-600 flex justify-between items-center">
+                    <span class="${entry.completed ? 'line-through text-gray-500' : ''}">${entry.task}</span>
+                    <span class="text-sm text-gray-500">${entry.date}</span>
+                </li>
+            `).join('');
+            document.getElementById('taskHistory').classList.remove('hidden');
+        }
+
+        // Progress Update
+        function updateProgress(percent) {
+            const ring = document.getElementById('progressRing');
+            const bar = document.getElementById('progressBar');
+            const text = document.getElementById('progressPercent');
+            const character = document.getElementById('characterContainer');
+            const offset = 283 - (percent / 100) * 283;
+            ring.style.strokeDashoffset = offset;
+            bar.style.width = percent + '%';
+            text.textContent = percent + '%';
+            character.innerHTML = `
+                <div class="text-8xl mb-3 progress-character">${
+                    percent < 30 ? '😐' : percent < 70 ? '😊' : '🤩'
+                }</div>
+                <p class="text-sm text-gray-300">Сіздің персонажыңыз</p>
+            `;
+
+            const statsContainer = document.getElementById('statsContainer');
+            statsContainer.innerHTML = `
+                <div class="holographic p-4 rounded-xl border border-purple-500/20">
+                    <p class="text-sm text-gray-300">Орындалған тапсырмалар</p>
+                    <p class="text-lg font-bold">${taskHistory.filter(t => t.completed).length}</p>
+                </div>
+                <div class="holographic p-4 rounded-xl border border-blue-500/20">
+                    <p class="text-sm text-gray-300">Күнделік жазбалары</p>
+                    <p class="text-lg font-bold">${journalEntries.length}</p>
+                </div>
+            `;
+        }
+
+        // Reset Progress
+        function resetProgress() {
+            progress = 0;
+            taskHistory = [];
+            localStorage.setItem('taskHistory', JSON.stringify(taskHistory));
+            updateProgress(0);
+            renderTaskHistory();
+        }
+
+        // Journal Management
+        function saveJournal() {
+            const journalText = document.getElementById('dailyJournal').value.trim();
+            const date = new Date().toLocaleDateString('kk-KZ', { year: 'numeric', month: 'long', day: 'numeric' });
+            if (journalText) {
+                journalEntries.unshift({ text: journalText, date });
+                localStorage.setItem('journalEntries', JSON.stringify(journalEntries));
+                document.getElementById('dailyJournal').value = '';
+                document.getElementById('journalDate').textContent = `Сақталған: ${date}`;
+                renderJournal();
+            }
+        }
+
+        function deleteJournalEntry(index) {
+            journalEntries.splice(index, 1);
+            localStorage.setItem('journalEntries', JSON.stringify(journalEntries));
+            renderJournal();
+            updateProgress(progress); // Update stats to reflect new journal count
+        }
+
+        function renderJournal() {
+            const journalContainer = document.getElementById('journalEntries');
+            journalContainer.innerHTML = journalEntries.map((entry, index) => `
+                <div class="p-4 bg-gray-800/40 rounded-xl border border-gray-600 flex justify-between items-center">
+                    <div>
+                        <p class="text-sm text-gray-300">${entry.text}</p>
+                        <p class="text-xs text-right text-gray-500 mt-2">${entry.date}</p>
+                    </div>
+                    <button onclick="deleteJournalEntry(${index})" class="text-red-500 hover:text-red-400 transition">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+            document.getElementById('journalHistory').classList.remove('hidden');
+        }
+
+        // Particles Animation
+function createParticles() {
+    const particlesContainer = document.getElementById('particles-container');
+    for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        particle.style.width = `${Math.random() * 5 + 2}px`;
+        particle.style.height = particle.style.width;
+        particle.style.background = `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.random() * 0.5 + 0.1})`;
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.top = `${Math.random() * 100}vh`;
+
+        // Animation
+        const duration = Math.random() * 20 + 10;
+        particle.style.animation = `float ${duration}s linear infinite`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+
+        particlesContainer.appendChild(particle);
+    }
+}
+
+// Initialize date in journal
+document.getElementById('journalDate').textContent = new Date().toLocaleDateString('kk-KZ', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+});
+
+// Initialize progress
+updateProgress(0);
+</script>
+</body>
+</html>
