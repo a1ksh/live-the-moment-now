@@ -16,3 +16,6 @@ A stylish, interactive mental health and productivity web application designed t
 * **JavaScript (ES6+)** - Dynamic functionality and logic.
 * **Chart.js** - For visualizing mood statistics.
 * **FontAwesome** - For clean, intuitive iconography.
+
+
+![Project Preview](Homepage.png)
