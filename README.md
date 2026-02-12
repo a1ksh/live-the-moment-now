@@ -17,5 +17,6 @@ A stylish, interactive mental health and productivity web application designed t
 * **Chart.js** - For visualizing mood statistics.
 * **FontAwesome** - For clean, intuitive iconography.
 
+### 📸 Preview
 
 ![Project Preview](https://github.com/a1ksh/live-the-moment-now/blob/main/Home%20page.png)
